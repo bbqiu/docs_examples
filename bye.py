@@ -5,7 +5,7 @@ import ray
 ray.init(address="auto")
 
 # 1: Define a Ray Serve deployment.
-@serve.deployment(route_prefix="/")
+@serve.deployment(route_prefix="/", num_replicas=16)
 class MyModelDeployment:
     def __init__(self):
         pass
