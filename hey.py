@@ -5,7 +5,13 @@ import ray
 ray.init(address="auto")
 
 # 1: Define a Ray Serve deployment.
-@serve.deployment(route_prefix="/", num_replicas=16)
+@serve.deployment(
+    autoscaling_config={
+        "min_replicas": 16,
+        "max_replicas": 100,
+        "target_num_ongoing_requests_per_replica": 0,
+    }
+)
 class MyModelDeployment:
     def __init__(self):
         pass
